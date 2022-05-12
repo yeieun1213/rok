@@ -1,15 +1,3 @@
-"""
-1. 필요한 라이브러리 다운받기
-pycharm 프로그램 밑에
-TODO-Problems-Terminal-Python Packages-Python Console
-메뉴가 있는데 그 중 Terminal을 열어서 아래에 있는 설치 명령어 한줄씩! 입력
-pip install pyautogui
-pip install openpyxl
-pip install clipboard
-pip3 install pytesseract
-pip install tesseract-ocr tesseract-ocr-script-hang tesseract-ocr-script-hang-vert
-pip install opencv-python
-"""
 import pyautogui
 import pytesseract
 import clipboard
@@ -20,18 +8,12 @@ from PIL import Image
 import os
 
 today = time.strftime('%m%d', time.localtime(time.time()))
-"""
-2. 저장 위치 바꾸기!
-폴더 만들어서 폴더 경로 입력
-"""
+
+# 파일 경로
 root = 'C:/Users/yeieu/Desktop/rok/'
 pytesseract.pytesseract.tesseract_cmd = R'C:/Program Files/Tesseract-OCR/tesseract'
 
-"""
-3. 세팅: 랭킹에서 1등의 숫자1에 커서 두기
-4. 실행: Shift + F10 
-"""
-
+# 시작, 
 #rank = int(input("start rank:"))
 #goal = int(input("goal rank:"))
 rank, goal = 431, 435
@@ -50,6 +32,7 @@ def setting():
 # to make excel file and set a base row
 def makexl(list):
     try:
+        # 파일 경로
         write_wb = load_workbook('C:/Users/yeieu/Desktop/rok/0911.xlsx')
     except:
         write_wb = Workbook()   # make excel file
@@ -160,8 +143,8 @@ def test():
     # screenshot
     find_user()
     time.sleep(1)
-    """
-    # uid95
+    
+    # uid
     img = capture('uid')
     uid = OCR(img).split(')')[0]
     print('uid:', uid)
@@ -176,7 +159,7 @@ def test():
     print('name:', name)
     list.append(name)
     time.sleep(0.3)
-    """
+    
     # power
     img = capture('power')
     time.sleep(0.3)
@@ -198,7 +181,7 @@ def test():
     list.append(point)
     os.remove(img)
     time.sleep(0.5)
-    """
+    
     # detail of kill points
     pyautogui.click(627, 241)  # click for detail
     time.sleep(0.5)
@@ -247,7 +230,7 @@ def test():
     path = root + str(rank) + '_death.png'
     pyautogui.screenshot(path, region=(95, 60, 700, 480))
     time.sleep(0.7)
-    """
+    
     pyautogui.click(870, 70)
     time.sleep(0.5)
 
@@ -268,13 +251,14 @@ if __name__ == '__main__':
             time.sleep(1)
             try:
                 ws = addcolumn(ws, list)
-            except: # 아니 오류가 생기면 우째?
+            except:
                 l = []
                 for i in range(len(list)):
                     l.append(0)
                 ws = addcolumn(ws, l)
             rank += 1
-        # 오류 생기면 묻지도 따지지도 말고 그냥 저장부터 해봐
+        
+        # 오류 생기면 그냥 저장
         finally:
             path = 'C:/Users/yeieu/Desktop/rok/0911.xlsx'
             wb.save(path)
